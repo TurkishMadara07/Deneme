@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="tr"><head><meta charset="utf-8"><title>10. Sınıf Deneme Modülü</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1b1f2a;--mu:#667;--ac:#5b5bf0;--ok:#16a34a;--no:#dc2626;--bd:#e3e5ee;--ex:#eef0ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#13151c;--card:#1d2029;--tx:#eceef5;--mu:#9aa0b4;--ac:#8b8bff;--bd:#2c3040;--ex:#262a3d;color-scheme:dark}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0 auto;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;padding:14px;max-width:720px}
+h1{font-size:20px;margin:4px 0}h3{margin:0 0 6px;font-size:16px}small{color:var(--mu)}
+.bar{height:8px;background:var(--bd);border-radius:9px;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;width:0;background:var(--ac);transition:width .5s}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:6px 0 8px}.tabs button{flex:none;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:8px 12px;border-radius:20px;font-size:14px}.tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin:10px 0;animation:up .3s both}@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;padding:10px;border-radius:10px;border:1px solid var(--bd);background:transparent;color:var(--tx);font-size:15px}
+.opt.ok{background:var(--ok);color:#fff;border-color:var(--ok)}.opt.no{background:var(--no);color:#fff;border-color:var(--no)}
+.ex{background:var(--ex);border-radius:10px;padding:10px;margin-top:8px;font-size:14.5px}
+.pri{background:var(--ac);color:#fff;border:0;padding:10px 16px;border-radius:12px;font-size:15px;margin:4px 4px 4px 0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px;border-radius:10px;border:1px solid transparent}.row.cur{border-color:var(--ac);background:var(--ex)}.row button{border:1px solid var(--ac);background:transparent;color:var(--tx);border-radius:10px;padding:6px 12px}
+input[type=range]{width:100%}svg{width:100%;height:auto}.tl{display:flex;gap:6px;flex-wrap:wrap}.tl button{border:1px solid var(--ac);background:transparent;color:var(--tx);border-radius:10px;padding:6px 12px}
+.big{font-size:44px;font-weight:700;text-align:center;font-variant-numeric:tabular-nums}
+table.t{border-collapse:collapse;width:100%;text-align:center;font-size:14px}.t td,.t th{border:1px solid var(--bd);padding:4px}
+</style></head><body>
+<h1>📚 10. Sınıf • 1. Yazılıya Kadar</h1>
+<small id="pt"></small><div class="bar"><i id="pb"></i></div>
+<div id="drive-note" class="card" style="border-color:var(--ac);margin-top:14px">
+  <h3>ℹ️ Sayfa önizlemesi desteklenmiyor</h3>
+  Bu dosya etkileşimli bir çalışma uygulamasıdır. Google Drive'ın dosya önizlemesi JavaScript'i çalıştırmadığı için dersler burada açılmaz.
+  <b>Çözüm:</b> Dosyayı GitHub Pages gibi bir web barındırma hizmetinde yayınlayıp oluşan site bağlantısını aç.
+</div>
+<div class="tabs" id="tabs"></div><div id="main"></div>
+<script>
+const S=[
+{n:"Türkçe",e:"📖",L:[
+["Sözcükte anlam","Sözcük bağlama göre anlam kazanır: <b>gerçek</b> (temel), <b>yan</b> (benzerlikle), <b>mecaz</b> (gerçek anlamından uzaklaşmış). <b>Terim anlam:</b> bilim ya da meslek alanına özgü (kök, matematikte). <b>Deyim:</b> en az iki sözcük, mecaz, kalıplaşmış (burnu havada). <b>Atasözü:</b> öğüt verir, genel yargı bildirir. <b>Eş sesli:</b> yazılışı ve sesi aynı, anlamı farklı (yüz)."],
+["Cümlede anlam","Cümleyi yorumlarken <b>neden-sonuç</b> (çünkü, bu yüzden), <b>amaç-sonuç</b> (diye, için), <b>koşul</b> (-se), <b>karşılaştırma</b>, <b>ek bilgi</b>, <b>karşıtlık</b> (ama, fakat) ilişkilerini ara.<br><b>Öznel yargı</b> kişiden kişiye değişir (güzel, en iyi); <b>nesnel yargı</b> kanıtlanabilir (Ankara başkenttir)."],
+["Paragraf","<b>Konu:</b> neyden söz ediliyor. <b>Ana düşünce:</b> yazarın vermek istediği asıl mesaj (çoğu zaman son cümle). <b>Yardımcı düşünce:</b> ana düşünceyi destekler.<br>Soru tipleri: boş bırakılan yeri tamamlama, paragrafı ikiye ayırma (bakış açısı değişen yer), anlatım akışını bozan cümle (konudan sapan).<br><i>İpucu: her cümleyi tek kelimeyle özetle.</i>"],
+["Destan dönemi şiiri (İslamiyet öncesi)","Sözlü edebiyattır. Türler: <b>sagu</b> (ağıt, ölüm), <b>sav</b> (atasözü, özdeyiş), <b>koşuk</b> (doğa, aşk, sevinç), <b>destan</b> (kahramanlık, olağanüstü olaylar).<br>Destanlar: Saka → Alp Er Tunga, Şu • Hun → Oğuz Kağan • Göktürk → Bozkurt, Ergenekon • Uygur → Türeyiş, Göç. Doğal destanlar anonimdir."],
+["Halk şiiri: koşma, türkü, mani","<b>Koşma:</b> 11’li hece ölçüsü, genelde dörtlüklerle, aşk, doğa, güzellik konulu. <b>Türkü:</b> anonim, ezgiyle söylenir, yöreye göre değişir. <b>Mani:</b> 7’li hece, dört dizelik, uyak düzeni aaxa. <b>Ağıt:</b> ölüm acısı. <b>Ninni:</b> çocuk uyutmak için."],
+["Masal","Hayal ürünüdür; olağanüstü kişi ve olaylar bulunur (dev, peri). Zaman ve mekân belirsizdir (“Evvel zaman içinde, kalbur saman içinde”). İyi–kötü çatışması vardır, genelde iyi kazanır. Kahramanlar tiptir; anonim ve sözlü başlar."],
+["Şiirde ahenk","<b>Uyak (kafiye):</b> dize sonlarındaki ses benzerliği. <b>Redif:</b> uyaktan sonra gelen aynı sözcük ya da ek. <b>Aliterasyon:</b> aynı ünsüzün tekrarı. <b>Asonans:</b> aynı ünlünün tekrarı. Uyak düzeni harflerle gösterilir (aaba, abab)."],
+["Tamlamalar","<b>Sıfat tamlaması:</b> sıfat + isim (kırmızı elma, üç kitap, bu ev). Sıfat soruları: nasıl? kaç? hangi? Tamlanan ek almaz.<br><b>Belirtili isim tamlaması:</b> tamlayan -ın/-in, tamlanan -ı/-i (okulun bahçesi). <b>Belirtisiz:</b> tamlayan ek almaz (okul bahçesi).<br><i>İpucu: sıfat tamlamasında tamlanan ek almaz, isim tamlamasında ek alır.</i>"],
+["Yazım ve noktalama","<b>de/da bağlaç</b> ayrı yazılır (Sen de gel); bulunma eki bitişiktir (evde). <b>ki bağlaç</b> ayrı yazılır. <b>mi</b> ayrı yazılır. Kesme işareti özel isimlere gelen ekleri ayırır (Ali’nin). Virgül sıralı öğeleri ayırır; cümle noktayla biter; cümle büyük harfle başlar."]],
+q:[["‘Sözleri yüreğimi yaktı.’ cümlesindeki ‘yaktı’ hangi anlamdadır?",["Gerçek","Mecaz","Terim","Eş sesli"],1,"Söz gerçekten ateşle yakmaz; duygusal bir etki anlatılır. Bu yüzden mecaz anlamdadır."],
+["Hangisi deyimdir?",["Damlaya damlaya göl olur.","Ağzı kulaklarına varmak","Sabreden derviş muradına ermiş.","Ayağını yorganına göre uzat."],1,"Deyim mecaz anlamlı kalıptır, öğüt vermez. Diğerleri atasözüdür; öğüt ya da genel yargı bildirir."],
+["‘Çalışmadığı için sınavdan düşük aldı.’ cümlesinde hangi ilişki vardır?",["Amaç-sonuç","Neden-sonuç","Koşul","Karşılaştırma"],1,"“-dığı için” bir neden bildirir, düşük not sonuçtur. Amaç-sonuçta eylem bir amaç uğruna yapılır."],
+["Hangisi nesnel yargıdır?",["Ankara Türkiye’nin başkentidir.","Bu manzara çok güzel.","En lezzetli yemek mantıdır.","Müzik en iyi dinlenme yoludur."],0,"Başkent bilgisi kanıtlanabilir. Güzel, lezzetli ve en iyi kişiden kişiye değişen öznel yargılardır."],
+["“Kitap okumak yalnızca zaman geçirmek değildir. Okuyan insan farklı hayatları tanır, kelime dağarcığını geliştirir ve düşünme becerisini güçlendirir. Bu yüzden okumak kişiyi hayata hazırlayan bir alışkanlıktır.” Ana düşünce hangisidir?",["Kitaplar pahalıdır.","Okumak kişiyi geliştiren, hayata hazırlayan bir alışkanlıktır.","Kelime öğrenmek zordur.","Okumak zaman geçirme yoludur."],1,"Ana düşünce, paragrafın son cümlesinde ve “bu yüzden” bağlacından sonra toplanır. Diğerleri ya yoktur ya da metnin tersini söyler."],
+["İslamiyet öncesi Türk edebiyatında ölüm üzerine söylenen ağıt türüne ne denir?",["Koşuk","Sagu","Sav","Destan"],1,"Sagu ağıttır. Koşuk doğa ve aşk, sav atasözü, destan kahramanlık konuludur."],
+["Koşma hangi hece ölçüsüyle yazılır?",["7’li","8’li","11’li","14’lü"],2,"Koşma 11’li hece ölçüsüyle yazılır. Mani 7’li hecelidir."],
+["Hangisi sıfat tamlamasıdır?",["Okulun bahçesi","Kırmızı elma","Ali’nin kalemi","Okul bahçesi"],1,"Kırmızı elma: sıfat + isim, tamlanan ek almamış. Diğerleri isim tamlamasıdır."],
+["‘Sessiz sokakta sarı sonbahar’ dizesinde hangi ahenk unsuru belirgindir?",["Redif","Aliterasyon","Asonans","Uyak"],1,"Aynı ünsüz olan s sesi tekrar ediliyor: aliterasyon. Asonans ünlü tekrarıdır."],
+["Hangisi yanlış yazılmıştır?",["Sen de geliyor musun?","O da bizimle gelecek.","Bende gelirim. (ben de anlamında)","Ev de çok güzeldi."],2,"“Ben de” anlamındaki de bağlaçtır, ayrı yazılır: Ben de gelirim. Bitişik yazılan -de bulunma ekidir (bende = bende var)."]]},
+
+{n:"Tarih",e:"🏰",L:[
+["Türkistan’dan Türkiye’ye: genel çerçeve","Selçuklular Türkistan’dan Horasan’a, İran ve Irak’a, oradan Anadolu’ya ilerledi. Sırayla: <b>Dandanakan (1040)</b> Gazneliler • <b>Pasinler (1048)</b> Bizans-Gürcü • <b>Malazgirt (1071)</b> Bizans • <b>Miryokefalon (1176)</b> Bizans • <b>Kösedağ (1243)</b> Moğollar."],
+["Pasinler Savaşı (1048)","Selçuklu ordusu (İbrahim Yınal komutasında), Doğu Anadolu’da Bizans-Gürcü ordusuyla savaştı. Selçuklu üstünlüğüyle bitti. Anadolu’ya Türk akınları hızlandı; Malazgirt’in yolunu açan ilk büyük mücadelelerdendir."],
+["Malazgirt (1071)","Alparslan, Bizans İmparatoru Romen Diyojen’i yendi. Sonuç: Anadolu’nun kapıları Türklere açıldı, Türkmen akını hızlandı, Anadolu’da beylikler kuruldu. Süleymanşah 1075’te Anadolu Selçuklu Devleti’ni kurdu."],
+["Haçlı Seferleri","1095’te Papa II. Urban, Clermont’ta Kudüs’ü “kurtarma” çağrısı yaptı. <b>Dini</b> (Kudüs, Papa’nın otoritesi), <b>ekonomik</b> (Doğu ticareti, zenginlik), <b>siyasi</b> (Bizans’ın yardım istemesi, feodal lordların toprak arzusu) sebepler vardı.<br>I. Haçlı Seferi sonunda Kudüs alındı (1099). Anadolu Selçuklu başkenti İznik’ten Konya’ya taşındı. Sonuç: İtalyan şehirleri (Venedik, Cenova) ticaretle güçlendi, feodalite zayıfladı; Selahaddin Eyyubi 1187’de Kudüs’ü geri aldı."],
+["Miryokefalon ve Kösedağ","<b>Miryokefalon (1176):</b> II. Kılıç Arslan Bizans’ı yendi; Anadolu’da Türk yurdu kalıcılaştı.<br><b>Kösedağ (1243):</b> Moğollara yenilen Anadolu Selçuklu zayıfladı, Moğol baskısı arttı, beylikler güçlendi."],
+["Türklerde devlet teşkilatı","<b>Hükümdar</b> yetkisini Tanrı’dan aldığına inanılırdı (kut). Danışma meclisi <b>kurultay</b>. Selçuklularda <b>divan</b> (Divan-ı Saltanat), <b>vezir</b> (Nizamülmülk) ve şehzadelerin eğitiminden sorumlu <b>atabey</b> vardı.<br>Ordu: ikta askerleri, saray muhafızı gulamlar, Türkmenler.<br>Bağımsızlık sembolleri: adına <b>hutbe okutmak</b> ve <b>sikke (para) bastırmak</b>."],
+["İkta ve Nizamiye","<b>İkta:</b> görevliye maaş yerine bir bölgenin vergi geliri bırakılır; toprağın mülkiyeti devlette kalır. Amaç: orduyu beslemek, merkezi otoriteyi korumak.<br><b>Nizamiye medreseleri:</b> Nizamülmülk açtırdı; Sünni eğitimi yaymak, devlet adamı yetiştirmek amacı vardı."],
+["Sosyoekonomik hayat","Türkmenler göçebe hayvancılık yapar; Selçuklular yerleşik düzeni ve tarımı da destekledi. Ticaret İpek Yolu üzerinden gelişti; <b>kervansaray ve hanlar</b> (Sultanhanı) yolları güvenli kıldı. Şehirler: Konya, Kayseri, Sivas. <b>Ahilik:</b> 13. yüzyıl Anadolu’sunda esnaf ve sanatkârı örgütleyen, ahlak ve dayanışma esasına dayanan teşkilat (Ahi Evran)."]],
+q:[["Pasinler Savaşı (1048) hangi güçler arasında yapılmıştır?",["Selçuklu – Bizans/Gürcü","Selçuklu – Gazneli","Selçuklu – Moğol","Anadolu Selçuklu – Haçlı"],0,"Pasinler’de Selçuklular Doğu Anadolu’da Bizans-Gürcü ordusuyla çarpıştı. Gazneli ile savaş Dandanakan (1040), Moğolla savaş Kösedağ (1243)’tır."],
+["Haçlı Seferleri’ni başlatan çağrıyı kim yapmıştır?",["Papa II. Urban","Romen Diyojen","Selahaddin Eyyubi","Alparslan"],0,"1095 Clermont’ta Papa II. Urban çağrı yaptı. Selahaddin Eyyubi, Haçlılarla savaşan Müslüman komutandır."],
+["Haçlı Seferleri’nin sonuçlarından biri hangisidir?",["Feodal sistem güçlendi","İtalyan ticaret şehirleri zenginleşti","Anadolu Selçuklu yıkıldı","Papalık tamamen yıkıldı"],1,"Venedik ve Cenova gibi ticaret şehirleri taşımacılık ve ticaretle zenginleşti. Feodalite ise zayıfladı."],
+["Selçuklularda şehzadelerin eğitiminden sorumlu görevli kimdir?",["Vezir","Atabey","Gulam","Kadı"],1,"Atabey, şehzadeyi eğiten ve yetiştiren görevlidir. Vezir ise devletin idari işlerini yürütür."],
+["Hutbe okutmak ve para bastırmak neyin göstergesidir?",["Bağımsızlık (egemenlik)","Vergi toplamanın","Askerlik görevinin","Ticaretin gelişmesinin"],0,"Adına hutbe okutmak ve para bastırmak hükümdarın bağımsızlık sembolleridir."],
+["13. yüzyıl Anadolu’sunda esnaf ve sanatkârı örgütleyen teşkilat hangisidir?",["İkta","Ahilik","Atabeylik","Kurultay"],1,"Ahilik, esnaf ve sanatkârı ahlak ve dayanışma çerçevesinde örgütlemiştir."],
+["Kösedağ Savaşı’nın sonucu nedir?",["Moğol baskısı arttı, Anadolu Selçuklu zayıfladı","Bizans güçlendi","Büyük Selçuklu kuruldu","Malazgirt kazanıldı"],0,"1243’te Moğollara yenilen Anadolu Selçuklu zayıfladı; beylikler öne çıktı."]]},
+
+{n:"Coğrafya",e:"🌍",L:[
+["Olay, olgu, mekân","<b>Olay:</b> zamanla sınırlı, değişen (deprem, sel, yangın). <b>Olgu:</b> sürekli, kalıcı özellik (Akdeniz iklimi, dağlar). <b>Mekân:</b> olay ve olgunun gerçekleştiği yer. Coğrafi sorularda olay ve olgu mekânla ilişkilendirilir (deprem → fay hattı)."],
+["CBS ve uzaktan algılama","<b>CBS:</b> farklı katmanları (yol, nüfus, iklim, arazi) tek haritada birleştirip analiz eder; şehir planlama, afet yönetimi, tarım. <b>Uzaktan algılama:</b> uydu ve uçaktan veri toplar (orman yangını, buzul erimesi, kentleşme). <b>GPS:</b> uydularla konum belirler."],
+["Harita yapımı","Veri toplama: arazi gözlemi, ölçüm, anket, istatistik, uydu görüntüsü. Sonra veriler haritaya işlenir ve haritanın bileşenleri eklenir: <b>başlık, ölçek, yön oku, lejant (işaretler), koordinat ağı, kaynak</b>.<br>Ölçek: 1/25.000, 1/1.000.000’dan büyüktür (daha ayrıntılı, daha küçük alan)."],
+["Levha tektoniği","Yerkabuğu levhalara bölünüdür ve hareket eder. <b>Iraksak sınır:</b> levhalar ayrılır, okyanus ortası sırt, yeni kabuk. <b>Yakınsak sınır:</b> çarpışma (dağ oluşumu) ya da dalma-batma (volkan, deprem). <b>Yanal (doğrultu atımlı) sınır:</b> levhalar yan yana kayar, fay ve deprem. Türkiye’de Kuzey Anadolu Fay Hattı yanal örnektir."],
+["Aşınım ve birikim","<b>Akarsu:</b> vadi, kanyon (aşınım); delta, taşkın ovası (birikim). <b>Rüzgâr:</b> mantar kaya (aşınım); kum tepeleri (birikim). <b>Buzul:</b> sirk, U vadi, fiyort. <b>Dalga:</b> falez (aşınım); kumsal, kıyı oku (birikim). <b>Karstik (çözünme):</b> dolin, mağara, sarkıt-dikit."],
+["Ayrışma, çözünme, iklim ve kayaç","Soğuk iklimde <b>don olayı</b>, sıcaklık farkı büyük çöllerde fiziksel ayrışma; nemli iklimde <b>kimyasal ayrışma/çözünme</b> (kalkerli arazide karstik). Kayaç sert mi yumuşak mı olduğu şekli belirler.<br><b>Peri bacası:</b> yumuşak tüfün üstünde sert bazalt/andezit başlık; yağış ve rüzgâr tüfü aşındırır (Kapadokya). <i>Animasyona bak.</i>"]],
+q:[["Hangisi bir olgudur?",["Sel","Deprem","Akdeniz iklimi","Fırtına"],2,"Olgu sürekli ve kalıcıdır (iklim). Sel, deprem, fırtına belirli bir anda gerçekleşen olaylardır."],
+["Uydu görüntüsüyle orman yangınının izlenmesi hangisinin kullanım alanıdır?",["Uzaktan algılama","Harita ölçeği","Lejant","Yön oku"],0,"Uydudan veri toplama uzaktan algılamadır. CBS ise bu verileri katmanlayıp analiz eder."],
+["Haritadaki işaretlerin ne anlama geldiğini gösteren bölüm hangisidir?",["Ölçek","Lejant","Başlık","Yön oku"],1,"Lejant (işaretler) sembollerin açıklamasıdır."],
+["Levhaların birbirinden uzaklaştığı sınırda ne oluşur?",["Dalma-batma","Okyanus ortası sırt ve yeni kabuk","Dağ sırası","Yanal kayma"],1,"Iraksak sınırda magma çıkar ve okyanus ortası sırt, yeni kabuk oluşur. Dağ oluşumu yakınsak sınırlarda görülür."],
+["Kuzey Anadolu Fay Hattı hangi sınır türüne örnektir?",["Iraksak","Yakınsak","Yanal (doğrultu atımlı)","Dalma-batma"],2,"KAF’ta levhalar birbirine paralel kayar; bu yüzden deprem sık görülür."],
+["Peri bacalarının oluşumunda kayaç yapısının rolü nedir?",["Hepsi aynı sertliktedir","Yumuşak tüf üstünde sert başlık bulunur","Sadece kalkerdir","Buzulla oluşur"],1,"Yumuşak tüf kolay aşınır; üstteki sert bazalt/andezit altını korur. Böylece koni biçimli peri bacası kalır."],
+["Kalkerli arazide yeraltı suyunun çözmesiyle oluşan şekil hangisidir?",["Delta","Mağara","Falez","Kum tepesi"],1,"Karstik şekiller (dolin, mağara, sarkıt) kalkerin suda çözünmesiyle oluşur. Falez dalga, delta akarsu, kum tepesi rüzgâr şeklidir."]]},
+
+{n:"Felsefe",e:"💭",L:[
+["Felsefe nedir?","Yunanca <b>philosophia</b> = philo (sevgi) + sophia (bilgelik): <b>bilgelik sevgisi</b>. Felsefe varlık, bilgi ve değer üzerine sorgulayarak düşünmedir. Cevaplardan çok <b>sorular</b> önemlidir; felsefi sorular ucu açık, evrensel ve gerekçelendirmeye dayanır."],
+["Felsefi düşüncenin özellikleri","<b>Sorgulayıcı</b> (neden?), <b>eleştirel</b> (kanıt ve gerekçe ister), <b>akla dayanır</b>, <b>tutarlıdır</b> (kendi içinde çelişmez), <b>bütüncüldür</b> (parçayı değil bütünü görmeye çalışır), <b>evrenseldir</b>.<br>Bilimden farkı: bilim gözlem ve deneyle, felsefe akıl yürütmeyle ilerler."],
+["Felsefenin ortaya çıkışı ve dönemleri","MÖ 6. yüzyılda İyonya’da (Miletos) <b>Thales</b> ile başladı: mitten (efsane) <b>logosa</b> (akıl) geçiş. Dönemler: <b>İlkçağ</b> (Sokrates, Platon, Aristoteles) → <b>Ortaçağ</b> (Hristiyan ve İslam felsefesi: Farabi, İbn Sina) → <b>Yeniçağ</b> (Rönesans, Descartes, Bacon) → <b>Aydınlanma</b> (Kant) → 19.-20. yüzyıl. Batı felsefesinin yanında Hint ve Çin gelenekleri de vardır."],
+["Mantık ve argümantasyon","<b>Önerme:</b> doğru ya da yanlış denebilen yargı cümlesidir (soru, emir, ünlem önerme değildir).<br><b>Argüman:</b> öncüller + sonuç. <b>Tümdengelim:</b> genelden özele, sonuç zorunlu. <b>Tümevarım:</b> özelden genele, sonuç olasıdır.<br><b>Geçerli:</b> sonuç öncüllerden zorunlu çıkar. Örnek: İnsan ölümlüdür; Sokrates insandır; Sokrates ölümlüdür."]],
+q:[["‘Felsefe’ sözcüğünün kökenindeki anlam hangisidir?",["Bilgelik sevgisi","Doğa bilimi","Din bilgisi","Sanat anlayışı"],0,"Yunanca philosophia: philo (sevgi) + sophia (bilgelik)."],
+["Hangisi önerme değildir?",["Dünya yuvarlaktır.","Kapıyı kapat.","Ankara Türkiye’nin başkentidir.","2 + 2 = 5"],1,"Emir cümlesi doğru ya da yanlış olarak değerlendirilemez. “2+2=5” yanlıştır ama önermedir."],
+["Felsefenin ortaya çıktığı yer ve ilk filozof hangisidir?",["İyonya – Thales","Atina – Platon","Roma – Seneca","Mısır – Hermes"],0,"MÖ 6. yy’da İyonya’da (Miletos) Thales, doğayı mitlere değil akla dayanarak açıklamaya çalıştı."],
+["Genelden özele giden akıl yürütmeye ne denir?",["Tümevarım","Tümdengelim","Analoji","Gözlem"],1,"Tümdengelim genelden özele gider. Tümevarım özelden genele gider."],
+["Felsefi düşünce için hangisi doğrudur?",["Kesin, değişmez cevaplar verir","Sorgulayıcı ve eleştireldir","Yalnızca deneyle kanıtlanır","Dogmatiktir"],1,"Felsefe, sorgulama ve eleştiriye dayanır. Yalnızca deneyle kanıtlama bilimin yöntemidir."]]},
+
+{n:"Din Kültürü",e:"🕌",L:[
+["Bilgi ve ilim","İslam’da bilgi (ilim) çok önemlidir. Kur’an’ın ilk inen ayeti <b>“Oku”</b> emriyle başlar. Bilgi; <b>zan</b> (kesin olmayan) ve <b>şüpheden</b> ayrılır. İlim, amelle (davranışla) birlikte değer kazanır."],
+["Bilgi kaynakları","İslam düşüncesinde bilgi kaynakları: <b>duyu organları</b> (gözlem), <b>akıl</b> (muhakeme), <b>doğru haber</b> (güvenilir kaynaktan aktarılan bilgi), <b>vahiy</b> ve <b>ilham</b>."],
+["Vahiy ve akıl","<b>Vahiy:</b> Allah’ın peygamberlerine, Cebrail aracılığıyla bildirdiği bilgi; Kur’an’dır. Akıl, vahyi anlamada araçtır; ama aklın sınırlı olduğu konular (ahiret gibi) vahiyle bilinir. Vahiy ve akıl <b>birbirini tamamlar</b>; Kur’an tefekkürü (düşünmeyi) teşvik eder."]],
+q:[["Kur’an’ın ilk inen ayetinin emri nedir?",["Oku","Dua et","Yaz","Say"],0,"İlk ayet “Oku” emriyle başlar; bilgiye verilen önemi gösterir."],
+["Hangisi İslam düşüncesinde bir bilgi kaynağı değildir?",["Akıl","Duyu organları","Vahiy","Fal"],3,"Duyu organları, akıl, doğru haber, vahiy ve ilham bilgi kaynağıdır. Fal bilgi kaynağı sayılmaz."],
+["Vahiy peygamberlere kim aracılığıyla gelir?",["Mikail","Cebrail","İsrafil","Azrail"],1,"Vahyi Cebrail iletir."],
+["Akıl ve vahiy ilişkisi için hangisi doğrudur?",["Birbirini tamamlar","Birbirinin tam zıttıdır","Akıl gereksizdir","Vahiy akılla çelişir"],0,"Akıl vahyi anlamaya yarar; vahiy, aklın yetmediği konularda bilgi verir."]]},
+
+{n:"Matematik",e:"📐",L:[
+["Dik üçgende oranlar","Açıya göre: <b>sin = karşı/hipotenüs</b>, <b>cos = komşu/hipotenüs</b>, <b>tan = karşı/komşu</b>, <b>cot = komşu/karşı</b>.<br>3-4-5 üçgeninde 3’ün karşısındaki açı α ise sin α = 3/5, cos α = 4/5, tan α = 3/4.<br><i>İpucu: karşı ve komşu, baktığın açıya göre değişir. Önce açıyı işaretle.</i>"],
+["Özdeşlikler","<b>sin²x + cos²x = 1</b> • tan x = sin x / cos x • cot x = cos x / sin x • tan x · cot x = 1.<br>1 + tan²x = 1/cos²x • 1 + cot²x = 1/sin²x.<br><b>Kritik:</b> (sin x + cos x)² = 1 + 2·sin x·cos x. Bu yüzden sin x + cos x = a ise sin x·cos x = (a² − 1)/2."],
+["Birim çember","Yarıçapı 1 olan, merkezi orijinde çember. Çember üzerindeki P noktası <b>(cos θ, sin θ)</b>: cos = x, sin = y.<br>0°: (1,0) • 90°: (0,1) • 180°: (−1,0).<br>İşaretler: 1. bölge hepsi +, 2. bölge sin +, 3. bölge tan ve cot +, 4. bölge cos +.<br>sin(180° − x) = sin x • cos(180° − x) = −cos x • sin(90° − x) = cos x."],
+["Özel açılar","<table class='t'><tr><th></th><th>30°</th><th>45°</th><th>60°</th></tr><tr><td>sin</td><td>1/2</td><td>√2/2</td><td>√3/2</td></tr><tr><td>cos</td><td>√3/2</td><td>√2/2</td><td>1/2</td></tr><tr><td>tan</td><td>√3/3</td><td>1</td><td>√3</td></tr></table><i>Hile: sin ve cos satırları aynı sayılar, ters sırada.</i>"],
+["Yardımcı elemanlar ve ağırlık merkezi","<b>Kenarortay</b> köşeyi karşı kenarın orta noktasına bağlar. Kenarortaylar <b>ağırlık merkezinde</b> kesişir; her biri tepeden 2 : kenardan 1 oranında bölünür.<br><b>Açıortay teoremi:</b> |BD|/|DC| = |AB|/|AC|. Dik üçgende hipotenüse ait kenarortay hipotenüsün yarısıdır."],
+["Üçgende alan, sinüsle alan","<b>A = ½ · a · h</b>. İki kenar ve aradaki açı biliniyorsa <b>A = ½ · a · b · sin C</b>. Eşkenar üçgende A = a²√3/4.<br>Taban sabitken yükseklik 2 katına çıkarsa alan 2 katına çıkar."],
+["Sinüs ve kosinüs teoremi","<b>Sinüs:</b> a/sin A = b/sin B = c/sin C = 2R. İki açı + bir kenar ya da bir kenar ve karşısındaki açı varsa.<br><b>Kosinüs:</b> a² = b² + c² − 2bc·cos A. İki kenar + aradaki açı ya da üç kenar varsa. A = 90° ise Pisagor çıkar."],
+["İki kategorik değişken ve araştırma","Araştırma planı: soru → örneklem → veri toplama (anket, gözlem) → <b>çapraz tablo</b> → yüzdelerle yorum. Yüzdeler gruplar arasında belirgin farklıysa değişkenler ilişkilidir.<br><b>İlişki ≠ nedensellik.</b>"]],
+q:[["Bir dik üçgende α açısının karşısındaki kenar 5, hipotenüs 13 ise sin α kaçtır?",["5/13","12/13","5/12","13/5"],0,"sin = karşı/hipotenüs = 5/13. 12/13 cos değeridir (komşu 12)."],
+["sin x · cos x = 1/2 ise (sin x + cos x)² kaçtır?",["1","2","3","1,5"],1,"(sin x + cos x)² = sin²x + cos²x + 2 sin x cos x = 1 + 2·(1/2) = 2."],
+["Birim çemberde 90° açıya karşılık gelen nokta hangisidir?",["(1, 0)","(0, 1)","(−1, 0)","(0, −1)"],1,"P(cos θ, sin θ); cos 90° = 0, sin 90° = 1. (1,0) 0° içindir."],
+["sin 60° + cos 30° kaçtır?",["√3","1","√3/2","2"],0,"sin 60° = √3/2 ve cos 30° = √3/2; toplamları √3."],
+["sin 150° kaçtır?",["1/2","−1/2","√3/2","−√3/2"],0,"sin(180° − 30°) = sin 30° = 1/2. İkinci bölgede sin pozitiftir."],
+["Ağırlık merkezi kenarortayı tepeden 2:1 böler. Kenarortay 12 cm ise ağırlık merkezinin köşeye uzaklığı kaç cm?",["4","6","8","9"],2,"Tepeye yakın kısım 2/3’tür: 12·2/3 = 8 cm. 4 cm kenara olan uzaklıktır."],
+["İki kenarı 4 ve 5 cm, aralarındaki açı 30° olan üçgenin alanı kaç cm²?",["10","5","20","2,5"],1,"A = ½·4·5·sin30° = ½·20·½ = 5. 10 bulursan sin30’u 1 almışsındır."],
+["a = 6, A = 30°, B = 90° olan üçgende b kaçtır?",["6","12","3","9"],1,"Sinüs teoremi: a/sinA = b/sinB → 6/(1/2) = b/1 → b = 12."],
+["b = 3, c = 4 ve aralarındaki A = 60° ise a² kaçtır?",["25","13","7","19"],1,"a² = 9 + 16 − 2·3·4·cos60° = 25 − 12 = 13. 25 bulduysan 90° yerine koymuşsundur."],
+["İki kategorik değişkenin ilişkili çıkması ne demektir?",["Biri diğerinin kesin nedenidir","Gruplara göre dağılım birbirinden bağımsız değildir","Veri hatalıdır","Yorum yapılamaz"],1,"İlişki, dağılımın gruplara göre değiştiğini gösterir; nedensellik kanıtlamaz."]]},
+
+{n:"Fizik",e:"⚡",L:[
+["Bir boyutta sabit ivmeli hareket","<b>İvme:</b> a = Δv/Δt. Hız eşit zamanlarda eşit değişir.<br><b>v = v₀ + a·t</b> • <b>x = v₀·t + ½·a·t²</b> • <b>v² = v₀² + 2·a·x</b> • x = (v₀ + v)/2 · t.<br><i>Zaman verilmediyse üçüncü formülü kullan. Yavaşlarken a negatiftir.</i>"],
+["Hareket grafikleri","<b>x–t:</b> sabit ivmede parabol; eğim anlık hız. <b>v–t:</b> sabit ivmede eğik doğru; <b>eğim = ivme</b>, <b>alan = yer değiştirme</b>. <b>a–t:</b> yatay çizgi; alan = hız değişimi (Δv).<br>Sabit hız: x–t doğru, v–t yatay. Eksenin altındaki alan negatif yer değiştirmedir."],
+["Kuvvet, yer değiştirme ve iş","<b>W = F · Δx · cos θ</b> (joule). F ile Δx aynı yönse W = F·Δx. Kuvvet harekete <b>dik</b> ise iş 0; ters yönde ise iş negatiftir (sürtünme). F–x grafiğinde alan işi verir. Net kuvvet F = m·a."],
+["İş, enerji, güç","<b>Ek = ½·m·v²</b> • <b>Ep = m·g·h</b> • Mekanik enerji = Ek + Ep (sürtünmesizse korunur).<br><b>İş–enerji teoremi:</b> net iş = Ek’deki değişim.<br><b>Güç: P = W/t</b> (watt) = F·v."]],
+q:[["v₀ = 4 m/s, a = 3 m/s², t = 2 s ise hız kaçtır?",["10 m/s","6 m/s","12 m/s","14 m/s"],0,"v = v₀ + a·t = 4 + 3·2 = 10 m/s."],
+["v₀ = 0, a = 4 m/s², t = 3 s ise yer değiştirme kaçtır?",["18 m","12 m","36 m","9 m"],0,"x = ½·a·t² = ½·4·9 = 18 m. 36 bulduysan ½’yi unutmuşsundur."],
+["Hız–zaman grafiğinde hız 5 sn’de 0’dan 20 m/s’ye çıkıyor. İvme kaçtır?",["4 m/s²","100 m/s²","25 m/s²","15 m/s²"],0,"İvme eğimdir: Δv/Δt = 20/5 = 4 m/s²."],
+["İvme–zaman grafiğinde eğri altındaki alan neyi verir?",["Yer değiştirmeyi","Hız değişimini","Kuvveti","İşi"],1,"a–t grafiğinde alan Δv’dir. Yer değiştirme için v–t grafiğinin altındaki alan alınır."],
+["10 N kuvvet cismi kuvvet yönünde 5 m götürürse yapılan iş kaçtır?",["50 J","15 J","2 J","5 J"],0,"W = F·Δx = 10·5 = 50 J."],
+["Kuvvet hareket yönüne dik ise yapılan iş kaçtır?",["0","F·x","−F·x","F/x"],0,"cos 90° = 0 olduğu için iş sıfırdır."],
+["2 kg kütleli cisim 3 m/s hızla gidiyorsa kinetik enerjisi kaç J?",["9","6","18","3"],0,"Ek = ½·m·v² = ½·2·9 = 9 J."],
+["10 s’de 200 J iş yapan makinenin gücü kaç W?",["20","2000","190","210"],0,"P = W/t = 200/10 = 20 W."]]},
+
+{n:"Kimya",e:"🧪",L:[
+["Kimyasal değişimler","Kimyasal değişimde yeni madde oluşur. <b>Kanıtlar:</b> renk değişimi, gaz çıkışı, çökelti, ısı/ışık yayılması, koku. Hal değişimi, çözünme, kırılma gibi olaylar fizikseldir (madde aynı kalır). Paslanma, yanma, sütün ekşimesi kimyasaldır."],
+["Tepkimelerin oluşumu","Tepkimede eski bağlar kırılır, yeni bağlar oluşur; atomlar yeniden düzenlenir. <b>Atom sayısı ve toplam kütle korunur.</b><br><b>Etkin çarpışma:</b> tanecikler yeterli enerji ve uygun doğrultuyla çarpışırsa tepkime olur."],
+["Tepkime türleri","<b>Sentez:</b> A + B → AB • <b>Analiz:</b> AB → A + B<br><b>Yanma:</b> madde + O₂ → ısı/ışık (CH₄ + 2O₂ → CO₂ + 2H₂O)<br><b>Yer değiştirme:</b> A + BC → AC + B • <b>Nötrleşme:</b> asit + baz → tuz + su • <b>Çökelme:</b> çözeltide katı oluşması."],
+["Denkleştirme","Yalnızca <b>katsayı</b> değiştirilir, indis (alt sayı) asla değişmez. Önce karmaşık formülü sabitle; en son H ve O’yu denkleştir.<br>N₂ + 3H₂ → 2NH₃ • 4Fe + 3O₂ → 2Fe₂O₃ • C₃H₈ + 5O₂ → 3CO₂ + 4H₂O"],
+["Mol kavramı","1 mol = <b>6,02·10²³</b> tanecik. <b>n = m / MA</b> • <b>n = N / N_A</b>.<br>MA: H = 1, C = 12, N = 14, O = 16. H₂O = 18, CO₂ = 44."],
+["Mol örnekleri","44 g CO₂ = 1 mol = 6,02·10²³ molekül. Bir CO₂ molekülünde 3 atom vardır; 1 mol CO₂’de <b>3 mol atom</b>. 36 g H₂O = 2 mol, içinde 6 mol atom.<br><i>Hata: mol sayısı ile atom sayısını karıştırma.</i>"]],
+q:[["Hangisi fiziksel değişimdir?",["Demirin paslanması","Suyun donması","Sütün ekşimesi","Odunun yanması"],1,"Donmada su, su olarak kalır; yalnızca hal değişir. Diğerlerinde yeni madde oluşur."],
+["N₂ + H₂ → NH₃ denklemi denkleştirilince katsayılar toplamı kaçtır?",["6","5","4","7"],0,"N₂ + 3H₂ → 2NH₃ ; 1 + 3 + 2 = 6."],
+["HCl + NaOH → NaCl + H₂O hangi tür tepkimedir?",["Yanma","Analiz","Nötrleşme","Sentez"],2,"Asit + baz → tuz + su nötrleşmedir."],
+["2H₂O → 2H₂ + O₂ hangi tür tepkimedir?",["Sentez","Analiz","Yanma","Nötrleşme"],1,"Tek bileşik iki ya da daha fazla maddeye ayrılıyor: analiz."],
+["11 g CO₂ (MA = 44) kaç moldür?",["0,25","4","1","0,5"],0,"n = 11/44 = 0,25 mol. 4 bulduysan 44/11 yapmışsındır."],
+["0,5 mol su (MA = 18) kaç gramdır?",["9","18","36","0,5"],0,"m = n·MA = 0,5·18 = 9 g."],
+["2 mol H₂O molekülünde toplam kaç mol atom vardır?",["2","3","6","4"],2,"Bir H₂O’da 3 atom vardır: 2·3 = 6 mol atom."],
+["Etkin çarpışma için gerekli olan hangisidir?",["Yeterli enerji ve uygun doğrultu","Yalnızca yüksek kütle","Sadece düşük sıcaklık","Hiçbiri"],0,"Tanecikler yeterli enerji ve uygun doğrultuyla çarpışmalıdır; aksi hâlde tepkime olmaz."]]},
+
+{n:"Biyoloji",e:"🧬",L:[
+["Canlılık için enerjinin önemi","Büyüme, taşıma, sentez, hareket enerji ister. <b>Ototroflar</b> (bitki, bazı bakteriler) besini kendi üretir; <b>heterotroflar</b> hazır alır. Enerji akışı: güneş → üretici → tüketici. Hücre enerjiyi <b>ATP</b> olarak kullanır."],
+["ATP’nin yapısı ve rolü","<b>Adenin + riboz + 3 fosfat.</b> Fosfatlar arası bağlar enerjice zengindir.<br><b>ATP → ADP + Pi + enerji</b> (açığa çıkar) • <b>ADP + Pi + enerji → ATP</b> (depolanır). ATP uzun süreli depo değildir; depo moleküller glikojen ve yağdır."],
+["Fotosentez","<b>6CO₂ + 6H₂O + ışık → C₆H₁₂O₆ + 6O₂</b> (kloroplast, klorofil). Işık enerjisi kimyasal enerjiye çevrilir.<br><b>Işığa bağımlı tepkimeler (grana/tilakoit):</b> su parçalanır, <b>O₂ sudan çıkar</b>, ATP ve NADPH oluşur.<br><b>Işıktan bağımsız tepkimeler (stroma):</b> CO₂ + ATP + NADPH → glikoz."],
+["Fotosentez deneyleri","Kullanılan: CO₂, H₂O, ışık. Üretilen: glikoz, O₂. Su bitkisinde (Elodea) çıkan <b>kabarcık sayısı O₂ üretimini</b> gösterir. Işık şiddeti arttıkça fotosentez hızı belli bir noktaya kadar artar, sonra sabitlenir (başka bir faktör sınırlar: CO₂, sıcaklık)."],
+["Kemosentez","Işık yok, klorofil gerekmez. Bazı bakteriler <b>inorganik maddelerin (H₂S, NH₃, Fe²⁺) oksitlenmesinden</b> açığa çıkan enerjiyle organik madde üretir (nitrifikasyon, demir, kükürt bakterileri). Ekosistemde azot döngüsüne katılır."],
+["Sindirim çeşitleri ve yapıları","<b>Mekanik:</b> fiziksel parçalama, enzim yok. <b>Kimyasal:</b> enzimle. <b>Hücre içi:</b> besin koful içinde sindirilir (amip). <b>Hücre dışı:</b> enzimler boşluğa/boruya salgılanır.<br>Sistemler: yok (amip) • <b>tek açıklıklı</b> (planarya, hidra: ağız-anüs ortak) • <b>tam sindirim sistemi</b> (solucan, böcek, insan: ağız ve anüs ayrı)."]],
+q:[["ATP → ADP dönüşümünde ne olur?",["Enerji açığa çıkar","Enerji depolanır","Fosfat sayısı 3’e çıkar","Su oluşur"],0,"ATP bir fosfat kaybedip ADP olurken enerji açığa çıkar. Depolama ADP → ATP yönündedir."],
+["ATP molekülü hangi bileşenlerden oluşur?",["Adenin, riboz, 3 fosfat","Adenin, deoksiriboz, 2 fosfat","Urasil, riboz, 3 fosfat","Glikoz, 3 fosfat"],0,"ATP = adenin + riboz + 3 fosfat."],
+["Fotosentezde açığa çıkan oksijen hangi maddeden gelir?",["Glikoz","CO₂","Su","ATP"],2,"Işığa bağımlı tepkimelerde su parçalanır ve O₂ sudan çıkar."],
+["Fotosentezin ürünleri hangileridir?",["Glikoz ve O₂","CO₂ ve H₂O","ATP ve CO₂","Protein ve su"],0,"6CO₂ + 6H₂O + ışık → glikoz + 6O₂. CO₂ ve su girenlerdir."],
+["Işığa bağımlı tepkimeler kloroplastın neresinde gerçekleşir?",["Stroma","Grana (tilakoit)","Çekirdek","Sitoplazma"],1,"Işığa bağımlı tepkimeler grana/tilakoit zarlarında, ışıktan bağımsızlar stromada olur."],
+["Kemosentezde enerji kaynağı nedir?",["Güneş ışığı","İnorganik maddelerin oksitlenmesi","Glikoz","ATP"],1,"Kemosentezde bakteriler H₂S, NH₃ gibi maddelerin oksidasyon enerjisini kullanır; ışık gerekmez."],
+["Amipte görülen sindirim hangisidir?",["Hücre içi sindirim","Hücre dışı sindirim","Tam sindirim sistemi","Mekanik sindirim"],0,"Besin koful içine alınır ve orada sindirilir."],
+["Planarya’nın sindirim sistemi için hangisi doğrudur?",["Ağız ve anüs ayrıdır","Tek açıklıklıdır","Sindirim boşluğu yoktur","Tam sindirim sistemidir"],1,"Planaryada ağız-anüs ortaktır; tek açıklıklı sindirim boşluğu vardır."]]}
+];
+const W={};
+function trig(){const d=+$("sl").value,r=d*Math.PI/180,L=150,x=20+L*Math.cos(r),y=170-L*Math.sin(r);
+$("tri").innerHTML=`<polygon points="20,170 ${x},170 ${x},${y}" fill="rgba(91,91,240,.15)" stroke="currentColor" stroke-width="2"/><text x="40" y="164" font-size="13" fill="currentColor">${d}°</text><text x="${x+4}" y="${(170+y)/2}" font-size="12" fill="currentColor">karşı</text><text x="${(20+x)/2}" y="186" font-size="12" fill="currentColor">komşu</text><text x="${(20+x)/2-30}" y="${(170+y)/2-6}" font-size="12" fill="currentColor">hipotenüs</text>`;
+$("tv").innerHTML=`sin = ${Math.sin(r).toFixed(3)} • cos = ${Math.cos(r).toFixed(3)} • tan = ${Math.tan(r).toFixed(2)}<br><small>sin² + cos² = ${(Math.sin(r)**2+Math.cos(r)**2).toFixed(2)}, hep 1. Açıyı 30, 45, 60 yap ve tabloyla karşılaştır.</small>`}
+W[5]=[`<svg viewBox="0 0 300 190" id="tri"></svg><input type="range" id="sl" min="1" max="89" value="30"><div id="tv"></div>`,()=>{$("sl").oninput=trig;trig()}];
+function hm(){const v=+$("v0").value,a=+$("ac").value,t=+$("tt").value,x=v*t+.5*a*t*t,X=s=>20+s*26,Y=u=>120-u*1.6;
+$("v0v").textContent=v;$("av").textContent=a;$("tv2").textContent=t;$("ball").setAttribute("cx",10+Math.min(x,150)*1.8);
+$("gr").innerHTML=`<line x1="20" y1="120" x2="290" y2="120" stroke="currentColor"/><line x1="20" y1="10" x2="20" y2="120" stroke="currentColor"/><polygon points="${X(0)},120 ${X(0)},${Y(v)} ${X(t)},${Y(v+a*t)} ${X(t)},120" fill="rgba(91,91,240,.3)"/><line x1="${X(0)}" y1="${Y(v)}" x2="${X(10)}" y2="${Y(v+a*10)}" stroke="#5b5bf0" stroke-width="2"/><text x="24" y="20" font-size="11" fill="currentColor">v (m/s)</text><text x="255" y="114" font-size="11" fill="currentColor">t (s)</text>`;
+$("hv").innerHTML=`v = v₀ + a·t = <b>${v+a*t}</b> m/s<br>x = v₀·t + ½·a·t² = <b>${x}</b> m<br><small>v–t grafiğinde boyalı alan = yer değiştirme, doğrunun eğimi = ivme.</small>`}
+function play(){$("tt").value=0;const p=setInterval(()=>{const e=$("tt");if(!e||+e.value>=10){clearInterval(p);return}e.value=+e.value+.5;hm()},250)}
+W[6]=[`<svg viewBox="0 0 300 50"><line x1="10" y1="40" x2="290" y2="40" stroke="currentColor"/><circle id="ball" cx="10" cy="30" r="9" fill="#5b5bf0"/></svg>v₀: <b id="v0v"></b> m/s<input type="range" id="v0" min="0" max="10" value="2">a: <b id="av"></b> m/s²<input type="range" id="ac" min="0" max="5" value="2">t: <b id="tv2"></b> s<input type="range" id="tt" min="0" max="10" step="0.5" value="0"><button class="pri" onclick="play()">▶ Oynat</button><svg viewBox="0 0 300 130" id="gr"></svg><div id="hv"></div>`,()=>{["v0","ac","tt"].forEach(x=>$(x).oninput=hm);hm()}];
+const TL=[["1040","Dandanakan: Selçuklular Gazneli Mesud’u yendi → Büyük Selçuklu Devleti kuruldu"],["1048","Pasinler: Selçuklu ordusu Bizans-Gürcü ordusuyla karşılaştı → Anadolu akınları hızlandı"],["1071","Malazgirt: Alparslan, Romen Diyojen’i yendi → Anadolu’nun kapısı açıldı"],["1095","Clermont: Papa II. Urban Haçlı çağrısı yaptı (sefer 1096-1099)"],["1176","Miryokefalon: II. Kılıç Arslan Bizans’ı yendi → Anadolu Türk yurdu oldu"],["1243","Kösedağ: Moğollara yenilgi → Anadolu Selçuklu zayıfladı, beylikler güçlendi"]];
+W[1]=[`<div class="tl">${TL.map((x,j)=>`<button onclick="document.getElementById('tt3').innerHTML='<b>${x[0]}:</b> '+TL[${j}][1]">${x[0]}</button>`).join("")}</div><p id="tt3"><small>Bir yıla dokun.</small></p>`,()=>{}];
+const PS=["1) Volkan püskürür: önce yumuşak tüf, üstüne sert lav (bazalt/andezit) birikir.","2) Yağış, don ve rüzgâr çatlakları genişletir; yumuşak tüf hızla aşınır.","3) Sert başlığın altındaki tüf korunur, çevresi aşınır → peri bacası. Başlık düşerse koni yıkılır."];
+function pr(k){const c='<rect x="20" y="40" width="260" height="80" fill="#e3c9a0"/><rect x="20" y="30" width="260" height="12" fill="#555"/>';let s="";
+if(k==0)s=c;if(k==1)s=c+'<path d="M80 42v60M140 42v70M200 42v55M240 42v65" stroke="#4a8" stroke-width="2"/>';
+if(k==2)s=[60,150,240].map(x=>`<polygon points="${x-24},120 ${x+24},120 ${x+8},52 ${x-8},52" fill="#e3c9a0"/><rect x="${x-14}" y="42" width="28" height="11" fill="#555"/>`).join("");
+$("ps").innerHTML=s+'<rect x="0" y="120" width="300" height="10" fill="#8a7b6a"/>';$("pt2").innerHTML=PS[k]}
+W[2]=[`<svg viewBox="0 0 300 130" id="ps"></svg><p id="pt2"></p><div class="tl"><button onclick="pr(0)">1. Oluşum</button><button onclick="pr(1)">2. Aşınma</button><button onclick="pr(2)">3. Peri bacası</button></div>`,()=>pr(0)];
+const P=[[0,5,"Destan, koşma, tamlamalar, paragraf; soruları çöz"],[1,3,"Zaman şeridi, Haçlılar, ikta"],[2,3,"Levha tektoniği, peri bacası animasyonu"],[3,2,"Felsefe: özellikler ve önerme"],[4,2,"Bilgi kaynakları ve vahiy"],[5,6,"Özdeşlikler, birim çember, teoremler"],[6,3,"Grafikler, iş ve enerji"],[7,3,"Mol, denkleştirme, tepkime türleri"],[8,3,"Fotosentez, ATP, kemosentez"]];
+let cur=98,A={},t=null,sec=1800;
+try{A=JSON.parse(localStorage.getItem("v3")||"{}")}catch(e){}
+const $=id=>document.getElementById(id);
+const sv=()=>{try{localStorage.setItem("v3",JSON.stringify(A))}catch(e){}};
+const cnt=i=>S[i].q.filter((_,j)=>A[i+"-"+j]!==undefined).length;
+const okc=i=>S[i].q.filter((q,j)=>A[i+"-"+j]===q[2]).length;
+function hdr(){let a=0,n=0;S.forEach((s,i)=>{a+=cnt(i);n+=s.q.length});$("pb").style.width=(a/n*100)+"%";$("pt").textContent=a+" / "+n+" soru çözüldü";
+$("tabs").innerHTML=`<button class="${cur==98?"on":""}" onclick="go(98)">⏱ Plan</button>`+S.map((s,i)=>`<button class="${cur==i?"on":""}" onclick="go(${i})">${s.e} ${s.n} ${cnt(i)}/${s.q.length}</button>`).join("")+`<button class="${cur==99?"on":""}" onclick="go(99)">❌ Yanlışlarım</button>`}
+function go(i){cur=i;hdr();i==98?plan():i==99?wrong():view(i);scrollTo(0,0)}
+function qc(i,j){const q=S[i].q[j],a=A[i+"-"+j],d=a!==undefined;
+return `<div class="card" id="q${i}-${j}"><h3>${j+1}. ${q[0]}</h3>`+q[1].map((o,k)=>`<button class="opt ${d?(k==q[2]?"ok":k==a?"no":""):""}" onclick="pick(${i},${j},${k})">${o}</button>`).join("")+(d?`<div class="ex">${a==q[2]?"✅ Doğru!":"❌ Yanlış. Doğru cevap: <b>"+q[1][q[2]]+"</b>"}<br>${q[3]}</div>`:"")+`</div>`}
+function sc(i){const e=$("sc");if(e)e.innerHTML=`<b>Skor: ${okc(i)} / ${cnt(i)}</b> <small>(toplam ${S[i].q.length} soru)</small>`}
+function pick(i,j,k){if(A[i+"-"+j]!==undefined)return;A[i+"-"+j]=k;sv();$("q"+i+"-"+j).outerHTML=qc(i,j);hdr();sc(i)}
+function reset(i){S[i].q.forEach((_,j)=>delete A[i+"-"+j]);sv();go(i)}
+function view(i){const s=S[i];let h=`<div class="card"><h3>${s.e} ${s.n}</h3><small>Önce konu anlatımını oku, sonra soruları çöz. Cevapların kaydedilir, sekme değiştirsen de sıfırlanmaz.</small></div>`;
+h+=s.L.map((l,x)=>`<div class="card"><h3>${x+1}. ${l[0]}</h3>${l[1]}</div>`).join("");
+if(W[i])h+=`<div class="card"><h3>🎛 Etkileşimli</h3>${W[i][0]}</div>`;
+h+=`<h3>📝 Sorular</h3><div id="sc"></div>`+s.q.map((_,j)=>qc(i,j)).join("")+`<button class="pri" onclick="reset(${i})">🔄 Bu dersin sorularını sıfırla</button>`;
+$("main").innerHTML=h;sc(i);if(W[i])W[i][1]()}
+function wrong(){let h=`<div class="card"><h3>❌ Yanlışlarım</h3><small>Yanlış yaptığın soruların doğru cevabı ve açıklaması.</small></div>`,n=0;
+S.forEach((s,i)=>s.q.forEach((q,j)=>{const a=A[i+"-"+j];if(a!==undefined&&a!==q[2]){n++;h+=`<div class="card"><small>${s.e} ${s.n}</small><h3>${q[0]}</h3>Senin cevabın: <b>${q[1][a]}</b><br>Doğru: <b>${q[1][q[2]]}</b><div class="ex">${q[3]}</div><button class="pri" onclick="retry(${i},${j})">Tekrar dene</button></div>`}}));
+if(!n)h+=`<div class="card">Henüz yanlışın yok 🎉 (ya da henüz soru çözmedin).</div>`;$("main").innerHTML=h}
+function retry(i,j){delete A[i+"-"+j];sv();go(i)}
+function plan(){$("main").innerHTML=`<div class="card"><h3>⏱ 30 dakikalık sprint</h3><div class="big" id="cl"></div><div class="bar"><i id="tb"></i></div><p id="seg"></p><button class="pri" onclick="tog()" id="tg">${t?"Duraklat":sec<1800?"Devam":"Başlat"}</button><button class="pri" onclick="rs()">Sıfırla</button></div><div class="card"><h3>Sıra</h3>`+P.map((p,k)=>`<div class="row" id="r${k}"><span>${S[p[0]].e} <b>${S[p[0]].n}</b> • ${p[1]} dk<br><small>${p[2]}</small></span><button onclick="go(${p[0]})">Git</button></div>`).join("")+`</div><div class="card"><small>Süre bitince “❌ Yanlışlarım” sekmesinden hatalarını tekrar et. Dersleri istersen ikinci tur da çözebilirsin.</small></div>`;draw()}
+function draw(){if(!$("cl"))return;const e=1800-sec;let a=0,c=-1;P.forEach((p,k)=>{if(c<0&&e<a+p[1]*60)c=k;a+=p[1]*60});
+$("cl").textContent=Math.floor(sec/60)+":"+String(sec%60).padStart(2,"0");$("tb").style.width=e/18+"%";
+$("seg").innerHTML=c<0?"Bitti 🎉 Şimdi yanlışlarına bak!":"Şimdi: <b>"+S[P[c][0]].n+"</b>, "+P[c][2];
+P.forEach((_,k)=>$("r"+k).classList.toggle("cur",k==c))}
+function tog(){if(t){clearInterval(t);t=null;$("tg").textContent="Devam"}else{$("tg").textContent="Duraklat";t=setInterval(()=>{if(sec>0)sec--;else{clearInterval(t);t=null}draw()},1000)}}
+function rs(){clearInterval(t);t=null;sec=1800;plan()}
+$("drive-note").hidden=true;
+go(98);
+</script></body></html>
