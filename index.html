@@ -24,6 +24,11 @@ table.t{border-collapse:collapse;width:100%;text-align:center;font-size:14px}.t 
 
 <div class="tabs" id="tabs"></div><div id="main"></div>
 <script>
+// Görünür hata bildirimi: mobil tarayıcıda uygulama başlatılamazsa nedeni göster.
+window.addEventListener('error', function (event) {
+  const box = document.getElementById('main');
+  if (box) box.innerHTML = '<div class="card"><h3>Uygulama başlatılamadı</h3><p>Tarayıcı hatası: ' + String(event.message || 'Bilinmeyen JavaScript hatası') + '</p><small>Bu ekranın görüntüsünü gönder.</small></div>';
+});
 const S=[
 {n:"Türkçe",e:"📖",L:[
 ["Sözcükte anlam","Sözcük bağlama göre anlam kazanır: <b>gerçek</b> (temel), <b>yan</b> (benzerlikle), <b>mecaz</b> (gerçek anlamından uzaklaşmış). <b>Terim anlam:</b> bilim ya da meslek alanına özgü (kök, matematikte). <b>Deyim:</b> en az iki sözcük, mecaz, kalıplaşmış (burnu havada). <b>Atasözü:</b> öğüt verir, genel yargı bildirir. <b>Eş sesli:</b> yazılışı ve sesi aynı, anlamı farklı (yüz)."],
@@ -94,6 +99,4 @@ q:[["‘Felsefe’ sözcüğünün kökenindeki anlam hangisidir?",["Bilgelik se
 ["Bilgi kaynakları","İslam düşüncesinde bilgi kaynakları: <b>duyu organları</b> (gözlem), <b>akıl</b> (muhakeme), <b>doğru haber</b> (güvenilir kaynaktan aktarılan bilgi), <b>vahiy</b> ve <b>ilham</b>."],
 ["Vahiy ve akıl","<b>Vahiy:</b> Allah’ın peygamberlerine, Cebrail aracılığıyla bildirdiği bilgi; Kur’an’dır. Akıl, vahyi anlamada araçtır; ama aklın sınırlı olduğu konular (ahiret gibi) vahiyle bilinir. Vahiy ve akıl <b>birbirini tamamlar</b>; Kur’an tefekkürü (düşünmeyi) teşvik eder."]],
 q:[["Kur’an’ın ilk inen ayetinin emri nedir?",["Oku","Dua et","Yaz","Say"],0,"İlk ayet “Oku” emriyle başlar; bilgiye verilen önemi gösterir."],
-["Hangisi İslam düşüncesinde bir bilgi kaynağı değildir?",["Akıl","Duyu organları","Vahiy","Fal"],3,"Duyu organları, akıl, doğru haber, vahiy ve ilham bilgi kaynağıdır. Fal bilgi kaynağı sayılmaz."],
-["Vahiy peygamberlere kim aracılığıyla gelir?",["Mikail","Cebrail","İsrafil","Azrail"],1,"Vahyi Cebrail iletir."],
-["Akıl ve vahiy ilişkisi için hangisi doğrudur?",["Birbirini tamamlar","Birbirinin tam zıttıdır","Akıl gereks
+["Hangisi İslam düşü
